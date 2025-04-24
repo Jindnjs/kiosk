@@ -22,6 +22,6 @@ public class MenuItem {
     //메뉴 출력 형식
     @Override
     public String toString() {
-        return menuName + "   | W " + menuPrice + " | " + menuDescription;
+        return String.format("%-13s | W %3.1f | %s", menuName, menuPrice, menuDescription);
     }
 }
