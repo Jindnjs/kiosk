@@ -29,7 +29,6 @@ public class Main {
                 new MenuItem("Chocolate Custard", 4.0, "진한 초콜릿 맛 커스터드")
         ))));
 
-
         //Kiosk 객체 생성 & items 초기화
         Kiosk kiosk = new Kiosk(menus);
 

@@ -18,6 +18,7 @@ public class MenuItem {
 
     //게터
     public String getMenuName() {return menuName;}
+    public double getMenuPrice() {return menuPrice;}
 
     //메뉴 출력 형식
     @Override
