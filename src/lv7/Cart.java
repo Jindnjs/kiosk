@@ -34,14 +34,15 @@ public class Cart {
         }
 
     }
-
+    //장바구니 비우기
     public void clearCart() {
         cartItems.clear();
         cartItemCount = 0;
         totalPrice = 0;
     }
-
+    //주문하기
     public void order(){
+        //장바구니 내역 출력
         System.out.println("\n아래와 같이 주문 하시겠습니까?\n");
         System.out.println("[ Orders ]");
         cartItems.forEach(System.out::println);
@@ -55,9 +56,13 @@ public class Cart {
             //처리
             //2는 메뉴판 돌아가기
             if(menuNum == 2) {return;}
+            //주문확정
             if(menuNum == 1) {
-                //추가
-                System.out.println("\n주문이 완료되었습니다. 금액은 W "+ totalPrice +" 입니다.");
+
+                //할인 적용하기
+                int discountRate = discountSelect();
+                double discountPrice = (100 - discountRate) * totalPrice / 100;
+                System.out.println("\n주문이 완료되었습니다. 금액은 W "+ discountPrice +" 입니다.");
                 //카트비우기
                 clearCart();
                 break;
@@ -65,6 +70,25 @@ public class Cart {
             System.out.println("유효한 숫자를 입력하세요");
         }
     }
+
+    private int discountSelect(){
+        while(true) {
+            System.out.println("\n할인 정보를 입력해주세요.");
+            UserType [] usertypes = UserType.values();
+            int seq=0;
+            for(UserType userType : usertypes) {
+                System.out.printf("%d. %-5s\t: %d%%\n",++seq,userType.getUserType(),userType.getDiscountRate());
+            }
+            int menuNum = Utils.getIntInput(">>>");
+            // 메뉴 범위를 벗어난 입력
+            if(menuNum<=0 || menuNum > seq) {
+                System.out.println("잘못된 입력입니다. 다시 입력하세요.");
+                continue;
+            }
+            return usertypes[menuNum-1].getDiscountRate();
+        }
+    }
+
     //게터
     public double getTotalPrice() {return totalPrice;}
     public int getCartItemCount() {return cartItemCount;}
