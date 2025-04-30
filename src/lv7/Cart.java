@@ -2,6 +2,7 @@ package lv7;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Cart {
     List<MenuItem> cartItems = new ArrayList<>();
@@ -70,24 +71,28 @@ public class Cart {
             System.out.println("유효한 숫자를 입력하세요");
         }
     }
-
+    //할인율 선택받는 메소드
     private int discountSelect(){
         while(true) {
             System.out.println("\n할인 정보를 입력해주세요.");
             UserType [] usertypes = UserType.values();
-            int seq=0;
-            for(UserType userType : usertypes) {
-                System.out.printf("%d. %-5s\t: %d%%\n",++seq,userType.getUserType(),userType.getDiscountRate());
-            }
+            IntStream.range(0, usertypes.length)
+                    .forEach(i -> {
+                        UserType userType = usertypes[i];
+                        System.out.printf("%d. %-5s\t: %d%%\n",i+1,userType.getUserType(),userType.getDiscountRate());
+                    });
             int menuNum = Utils.getIntInput(">>>");
             // 메뉴 범위를 벗어난 입력
-            if(menuNum<=0 || menuNum > seq) {
+            if(menuNum<=0 || menuNum > usertypes.length) {
                 System.out.println("잘못된 입력입니다. 다시 입력하세요.");
                 continue;
             }
             return usertypes[menuNum-1].getDiscountRate();
         }
     }
+
+    //람다 스트림 활용 적용하기
+    //menuName이름을 cartItems에서 제거
 
     //게터
     public double getTotalPrice() {return totalPrice;}

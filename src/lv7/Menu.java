@@ -1,6 +1,8 @@
 package lv7;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 public class Menu {
 
@@ -22,10 +24,8 @@ public class Menu {
     public void displayMenu(){
         // 카테고리이름의 대문자 출력
         System.out.println("\n[ "+ categoryName.toUpperCase() +" MENU ]");
-
-        for (int i = 0; i < menuItems.size(); i++){
-            System.out.println(i+1 + ". " + menuItems.get(i));
-        }
+        IntStream.range(0, menuItems.size())
+            .forEach(i -> System.out.println(i+1 + ". " + menuItems.get(i)));
         System.out.println("0. 뒤로가기");
     }
 }

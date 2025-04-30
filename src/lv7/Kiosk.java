@@ -1,6 +1,7 @@
 package lv7;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Kiosk {
 
@@ -18,9 +19,8 @@ public class Kiosk {
     private void displayMainMenu() {
         // List와 Menu 클래스 활용하여 상위 카테고리 메뉴 출력
         System.out.println("\n[ MAIN MENU ]");
-        for (int i = 0; i < menus.size(); i++) {
-            System.out.println(i + 1 + ". " + menus.get(i).getCategoryName());
-        }
+        IntStream.range(0, menus.size())
+                .forEach(i -> System.out.println(i+1 + ". " + menus.get(i).getCategoryName()));
         System.out.println("0. 종료      | 종료");
 
         //장바구니가 비어있으면 끝.
