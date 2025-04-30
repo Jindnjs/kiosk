@@ -2,6 +2,7 @@ package lv7;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Cart {
@@ -49,7 +50,19 @@ public class Cart {
         cartItems.forEach(System.out::println);
         System.out.println("\n[ Total ]");
         System.out.println("W "+totalPrice);
+
+        //메뉴삭제하기 기능구현
+        System.out.println("=========================");
+        System.out.println("ShackBurger메뉴 삭제하기");
+        removeSingleItem("ShackBurger");
+        System.out.println("[ Orders ]");
+        cartItems.forEach(System.out::println);
+        System.out.println("\n[ Total ]");
+        System.out.println("W "+totalPrice);
+
+        //결과 확인해보기
         System.out.println("\n1. 주문       2. 메뉴판");
+
 
         //유효한 숫자만 입력받기
         while(true) {
@@ -93,6 +106,17 @@ public class Cart {
 
     //람다 스트림 활용 적용하기
     //menuName이름을 cartItems에서 제거
+    private void removeSingleItem(String menuName) {
+        //항목 제거하기
+        cartItems =  cartItems.stream()
+                .filter(item -> !item.getMenuName().equals(menuName))
+                .collect(Collectors.toList());
+        //총 수량이랑 총액 다시 계산하기
+        cartItemCount = cartItems.size();
+        totalPrice = cartItems.stream()
+                .mapToDouble(i -> i.getMenuPrice())
+                .sum();
+    }
 
     //게터
     public double getTotalPrice() {return totalPrice;}
